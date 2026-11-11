@@ -35,6 +35,11 @@ pipeline {                     // 전체 Pipeline
                 runCmd "${env.VPY} -m py_compile app.py deploy.py"
             }
         }
+        stage('Data Check') {         
+            steps {            // 이 단계에서 실행할 명령
+                runCmd "${env.VPY} -m pytest -v tests/test_data.py"
+            }
+        }
         stage('Test') {         
             steps {            // 이 단계에서 실행할 명령
                 runCmd "${env.VPY} -m pytest -v"

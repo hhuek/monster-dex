@@ -46,14 +46,27 @@ pipeline {
                     }
                 }
                 stage('Data Check'){
+                    agent { label 'qa' }
                     steps {
+
+                        echo "실행 Node : ${env.NODE_NAME}"
+                        
+                        runCmd "${env.PY} -m venv .ci-venv"       
+                        runCmd "${env.VPY} -m pip install -q -r requirements.txt pytest pytest-html"    
+
                         runCmd "${env.VPY} -m pytest -v tests/test_data.py --junitxml=reports/junit.xml --html=reports/report.html --self-contained-html"
                         sleep time:3, unit:'SECONDS'
                     }
                 }
                 stage('API Test') {       
+                    agent { label 'qa' }
                     steps {            
-                        // pytest 실행
+                        
+                        echo "실행 Node : ${env.NODE_NAME}"
+                        
+                        runCmd "${env.PY} -m venv .ci-venv"       
+                        runCmd "${env.VPY} -m pip install -q -r requirements.txt pytest pytest-html"    
+                        
                         runCmd "${env.VPY} -m pytest -v tests/test_api.py --junitxml=reports/junit.xml --html=reports/report.html --self-contained-html"
                         sleep time:3, unit:'SECONDS'
                     }

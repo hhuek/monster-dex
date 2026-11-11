@@ -27,7 +27,7 @@ pipeline {                     // 전체 Pipeline
         stage('Setup') {         
             steps {            // 이 단계에서 실행할 명령
                 runCmd "${env.PY} -m venv .ci-venv"
-                runCmd "${env.VPY} -m pip install -q -r requirements.txt"
+                runCmd "${env.VPY} -m pip install -q -r requirements.txt pytest"
             }
         }
         stage('Syntax Check') {         

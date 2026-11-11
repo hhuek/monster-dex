@@ -32,7 +32,7 @@ pipeline {                     // 전체 Pipeline
         }
         stage('Syntax Check') {         
             steps {            // 이 단계에서 실행할 명령
-                runCmd "${env.VPY} -m py_complie app.py deploy.py"
+                runCmd "${env.VPY} -m py_compile app.py deploy.py"
             }
         }
         stage('Test') {         
